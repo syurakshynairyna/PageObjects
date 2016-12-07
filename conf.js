@@ -6,7 +6,7 @@ module.exports.config = {
    
 
     params: {
-    
+    // Custom timeouts to wait for elements on the page
         customTimeout: 3000,
         customMinTimeout: 1000,
     },
@@ -18,14 +18,14 @@ module.exports.config = {
 
     // },
 
-
     multiCapabilities: [
         {browserName: 'chrome'},
         {browserName: 'chrome'},
     ],
     framework: 'jasmine2',
+
     onPrepare: function() {
-      //Making ExpectedConditions accessible everywhere thru shortcut
+    //Making ExpectedConditions accessible everywhere thru shortcut
     global.EC = protractor.ExpectedConditions;
     
     var jasmineReporters = require('jasmine-reporters');
@@ -49,7 +49,10 @@ module.exports.config = {
     jasmine.getEnv().addReporter(junitReporter);
           
         }),
-   
+
+        // Smartly searches for the element for additional time, works on the browser side
+        browser.manage().timeouts().implicitlyWait(2000),
+
         //onPrepare: function (){
         //Impl waits for elements
         //browser.manage().timeouts().ImplicitlyWait(3000)
@@ -82,5 +85,7 @@ module.exports.config = {
             browser.get('')
             browser.sleep(3000)      
     })
+
     }
-}
+
+    }
