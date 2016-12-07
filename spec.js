@@ -2,6 +2,7 @@
 let NotesPage = require('./PageObjects/NotesPage.js').NotesPage
 let ArchievePage = require('./PageObjects/ArchievePage.js').ArchievePage
 let RecycleBin = require('./PageObjects/RecycleBin.js').RecycleBin
+let AboutPage = require('./PageObjects/AboutPage.js').AboutPage
 let EC = protractor.ExpectedConditions
 
 
@@ -71,7 +72,6 @@ beforeEach(function () {
         expect(notesPage.getNotes().count()).toBe(0, 'Notes count should be 0')
       
     })
-    
 
 })
 
@@ -109,13 +109,12 @@ describe('Preserver Achieve tests', function() {
         })
     })
  
-    xit('should be moved to Achieve Notes', function () {
-
-        notePage.createNotes('Note for achieving', 'Archieve')
+    it('Should be moved to Achieve Notes', function () {
+        notesPage.createNote('Note for achieving', 'Archieve')
+        browser.sleep(2000)
         archievePage.archieveNote()
         browser.sleep(5000)
-    
-    expect(archievePage.getNotes().count()).toBe(1, 'Notes count should be 1 after archieved')
+        expect(archievePage.getNotes().count()).toBe(1, 'Notes count should be 1 after archieved')
     })
 
 })
@@ -154,17 +153,25 @@ describe('Preserver Delete tests', function() {
             // indexedDB storage is disabled for data URLs
         })
     })
- 
-    xit('Should be removed to recycle bin', function () {
-
-        notesPage.createNotes('Note for deleting', 'Delete')
-        browser.sleep(2000)
-        recyclebin.deleteNote()
-        browser.sleep(5000)
     
-    expect(recyclebin.getNotes().count()).toBe(1, 'Notes count in recycle bin should be 1')
+    it('Should be removed to recycle bin', function () {
+        notesPage.createNote('Title for deleting', 'Test delete')
+        browser.sleep(2000)
+        recycleBin.deleteNote()
+        browser.sleep(2000)
+        expect(recycleBin.getNotes().count()).toBe(1, 'Notes count in recycle bin should be 1')
     })
 
+})
+
+
+describe('Preserver About page', function(){
+    let aboutPage = new AboutPage()
+    it('About page should be open', function(){
+        aboutPage.openAbout()
+        browser.sleep(5000)
+        expect(aboutPage.getAbout().isPresent()).toBe(true)
+    })
 })
 
 
