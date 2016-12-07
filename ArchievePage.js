@@ -21,3 +21,5 @@ class ArchievePage {
 
 // Экспортим объект чтобы он был доступен в других файлах
 module.exports.ArchievePage = ArchievePage
+
+

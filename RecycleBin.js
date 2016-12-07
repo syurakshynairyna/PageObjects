@@ -10,7 +10,7 @@ class RecycleBin {
        deleteNote() {
         this.buttonToDelete.click()
         this.pageDeleteNotes.click()
-        this.DeleteLink.click()
+        this.deleteLink.click()
 
     }
 
